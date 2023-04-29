@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Kuanchiliao1/todolist/issues"
   },
-  "homepage": "https://github.com/Kuanchiliao1/todolist#readme"
+  "homepage": "https://github.com/Kuanchiliao1/todolist#readme",
+  "devDependencies": {
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2"
+  }
 }
