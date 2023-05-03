@@ -5,13 +5,13 @@ const crudMethods = (object) => {
 
   const getProperty = (property) => object[property];
 
-  const getObj = () => [object, 'example'];
+  const getObject = () => object;
 
   const markDeleted = () => {
     object.deleted = true;
   };
 
-  return { setProperty, getProperty, getObj, markDeleted };
+  return { setProperty, getProperty, getObject, markDeleted };
 };
 
 export default crudMethods;
