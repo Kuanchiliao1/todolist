@@ -1,16 +1,21 @@
-export default TodoFactory = (
+import createId from './idGenerator';
+
+const TodoFactory = (
   name,
   description = null,
   dueDate = null,
   priority = null,
-  done = false
+  done = false,
+  deleted = false
 ) => {
   const todoObj = {
+    id: createId(),
     name,
     description,
     dueDate,
     priority,
     done,
+    deleted,
   };
 
   const setTodoProperty = (property, value) => {
@@ -21,7 +26,11 @@ export default TodoFactory = (
 
   const getTodoObj = () => todoObj;
 
-  const deleteTodo = () => {};
+  const deleteTodo = () => {
+    todoObj.deleted = true;
+  };
 
-  return { setTodoProperty, getTodoProperty, getTodoObj };
+  return { setTodoProperty, getTodoProperty, getTodoObj, deleteTodo };
 };
+
+export default TodoFactory;
