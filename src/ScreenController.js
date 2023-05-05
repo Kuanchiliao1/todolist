@@ -4,10 +4,12 @@ import ProjectListFactory from './ProjectListFactory';
 
 const ScreenController = () => {
   const projectlist = ProjectListFactory();
-  projectlist.addProject();
+  let activeProject;
 
   const currentActiveProject = () =>
-    projectlist.find((project) => project.active);
+    (activeProject = projectlist
+      .getProjects()
+      .find((project) => project.active));
 
   const updateScreen = () => {
     const contentDiv = document.getElementById('content');
@@ -22,22 +24,41 @@ const ScreenController = () => {
 
   const renderProjects = () => {
     const projects = projectlist.getProjects();
+    const projectsContainerDiv = document.querySelector('.projects-container');
+
     projects.forEach((project) => {
       const projectDiv = document.createElement('div');
-      const projectContainerDiv = document.querySelector('.projects-container');
 
       projectDiv.classList.add('project');
+      projectDiv.id = project.id;
       projectDiv.textContent = project.name;
-      projectContainerDiv.append(projectDiv);
+      projectsContainerDiv.append(projectDiv);
     });
-    console.log(projectlist.getProjects());
   };
 
   const renderTodos = () => {
-    projectlist.getProjects();
+    // Add two todos to test
+    activeProject.addTodo('todo #1');
+    activeProject.addTodo('todo #2');
+
+    const todos = activeProject.getTodos();
+    const todosContainerDiv = document.querySelector('.todos-container');
+
+    todos.forEach((todo) => {
+      const todoDiv = document.createElement('div');
+
+      todoDiv.classList.add('todo');
+      todoDiv.id = todo.id;
+      todoDiv.textContent = todo.name;
+      todosContainerDiv.append(todoDiv);
+    });
   };
 
   const initialRender = () => {
+    // This is the first default project
+    projectlist.addProject();
+    activeProject = currentActiveProject();
+
     const contentDiv = document.createElement('div');
     contentDiv.id = 'content';
     contentDiv.innerHTML = `
@@ -55,6 +76,7 @@ const ScreenController = () => {
 
   initialRender();
   updateScreen();
+  renderTodos();
 };
 
 export default ScreenController;
