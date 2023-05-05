@@ -20,6 +20,9 @@ const ProjectFactory = (name) => {
     priority: null,
     done: false,
     deleted: false,
+    clearDeletedTodos() {
+      console.table(this);
+    },
   };
 
   const crud = crudMethods(proto);
@@ -37,16 +40,12 @@ const ProjectFactory = (name) => {
   const deleteTodo = (todoId) => {
     const todo = findTodo(todoId);
     todo.markDeleted();
-    clearDeletedTodos();
-  };
-
-  const clearDeletedTodos = () => {
-    proto.todos = proto.todos.filter((todo) => !todo.deleted);
+    proto.clearDeletedTodos();
   };
 
   const findTodo = (id) => proto.todos.find((todo) => todo.id === id);
 
-  return Object.assign(Object.create(proto), crud, {
+  return Object.assign(Object.create(crud), proto, {
     findTodo,
     addTodo,
     deleteTodo,
