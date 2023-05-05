@@ -20,12 +20,15 @@
   },
   "homepage": "https://github.com/Kuanchiliao1/todolist#readme",
   "devDependencies": {
+    "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.1",
+    "style-loader": "^3.3.2",
     "webpack": "^5.81.0",
     "webpack-cli": "^5.0.2",
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
-    "eslint-config-wesbos": "^3.2.3"
+    "eslint-config-wesbos": "^3.2.3",
+    "lodash": "^4.17.21"
   }
 }
