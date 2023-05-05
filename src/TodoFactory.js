@@ -1,21 +1,23 @@
 import createId from './idGenerator';
-import crudMethods from './crudMethods';
 
-const TodoFactory = (name) => {
+const TodoFactory = (name, project) => {
   const proto = {
     id: createId(),
     name,
+    project,
     type: 'todo',
     description: null,
     dueDate: null,
     priority: null,
     done: false,
-    deleted: false,
   };
 
-  const crud = crudMethods(proto);
+  const toggleDone = () => {
+    proto.done = !proto.done;
+    console.log(`${proto.name} is done!`);
+  };
 
-  return Object.assign(Object.create(proto), crud);
+  return Object.assign(Object.create(proto), { toggleDone });
 };
 
 export default TodoFactory;

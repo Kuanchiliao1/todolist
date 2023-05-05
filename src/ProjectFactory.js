@@ -6,7 +6,6 @@
 // m areTodosAllDone
 
 import createId from './idGenerator';
-import crudMethods from './crudMethods';
 import TodoFactory from './TodoFactory';
 
 const ProjectFactory = (name) => {
@@ -19,33 +18,30 @@ const ProjectFactory = (name) => {
     dueDate: null,
     priority: null,
     done: false,
-    deleted: false,
-    clearDeletedTodos() {
-      console.table(this);
-    },
   };
-
-  const crud = crudMethods(proto);
 
   const addTodo = (todoName) => {
     proto.todos.push(TodoFactory(todoName));
-    console.log('todo added!');
+    console.log(`Todo with name ${todoName} was added!`);
   };
 
   const viewTodos = () => {
-    console.log('viewing todo ids!');
-    console.log(proto.todos.map((todo) => todo.id));
+    console.table(
+      proto.todos.map((todo) => ({ name: todo.name, id: todo.id }))
+    );
   };
 
   const deleteTodo = (todoId) => {
-    const todo = findTodo(todoId);
-    todo.markDeleted();
-    proto.clearDeletedTodos();
+    console.log(`todo with id: ${todoId} has been deleted!`);
+    proto.todos = proto.todos.filter((todo) => todo.id !== todoId);
   };
 
-  const findTodo = (id) => proto.todos.find((todo) => todo.id === id);
+  const findTodo = (id) => {
+    const todo = proto.todos.find((todo) => todo.id === id);
+    console.log('id', todo.id, 'name', todo.name);
+  };
 
-  return Object.assign(Object.create(crud), proto, {
+  return Object.assign(Object.create(proto), {
     findTodo,
     addTodo,
     deleteTodo,
