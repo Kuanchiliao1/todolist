@@ -13,7 +13,6 @@ const ScreenController = () => {
 
   const updateScreen = () => {
     const contentDiv = document.getElementById('content');
-    renderProjects();
 
     // // Add the image to our existing div.
     // const myIcon = new Image();
@@ -67,16 +66,30 @@ const ScreenController = () => {
       </div>
       <div class="todos-container">
         <h1>Todo</h1>
+        <button class="add-todo-btn">Add todo</button>
       </div>
     `;
     document.body.append(contentDiv);
+
+    renderProjects();
+    renderTodos();
   };
 
-  const bindEventListeners = () => {};
+  const bindEventListeners = () => {
+    const contentDiv = document.getElementById('content');
+    contentDiv.addEventListener("click", (event) => {
+
+      if (event.target.matches(".add-todo-btn")) {
+        console.log(event.target);
+        activeProject.addTodo("test");
+        updateScreen();
+      }
+    });
+  };
 
   initialRender();
   updateScreen();
-  renderTodos();
+  bindEventListeners();
 };
 
 export default ScreenController;
