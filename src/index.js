@@ -1,18 +1,14 @@
+import './style.css';
+import _ from 'lodash';
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import TodoFactory from './TodoFactory';
 import ProjectFactory from './ProjectFactory';
+import ProjectListFactory from './ProjectListFactory';
+import ScreenController from './ScreenController';
 
-const project = ProjectFactory('project name 0');
-const project1 = ProjectFactory('project name 1');
-const project2 = ProjectFactory('project name 2');
+library.add(faCheck);
+dom.watch();
 
-
-debugger
-
-project.addTodo('test Todo');
-project.addTodo('test Todo 2');
-project1.addTodo('test Todo1');
-project2.addTodo('test Todo2');
-console.log(project.deleteTodo(4));
-console.log({
-  'list todos': project.getProperty('todos').map((todo) => todo.id),
-});
+ScreenController();
+const projectlist = ProjectListFactory('project list #1');
