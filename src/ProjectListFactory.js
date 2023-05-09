@@ -21,14 +21,20 @@ const ProjectListFactory = () => {
 
   const deleteProject = (projectId) => {
     console.log(`project with id: ${projectId} has been deleted!`);
-    proto.projects = proto.projects.filter(
-      (project) => project.id !== projectId
-    );
+    const id = Number(projectId);
+    proto.projects = proto.projects.filter((project) => project.id !== id);
   };
 
   const findProject = (id) => {
     const project = proto.projects.find((project) => project.id === id);
     console.log('id', project.id, 'name', project.name);
+  };
+
+  const setActiveProject = (projectId) => {
+    const id = Number(projectId);
+    proto.projects.forEach((project) => {
+      project.active = id === project.id;
+    });
   };
 
   return Object.assign(Object.create(proto), {
