@@ -8,7 +8,7 @@
 import createId from './idGenerator';
 import TodoFactory from './TodoFactory';
 
-const ProjectFactory = (name) => {
+const ProjectFactory = (name = "Project", active) => {
   const proto = {
     id: createId(),
     name,
@@ -18,6 +18,7 @@ const ProjectFactory = (name) => {
     dueDate: null,
     priority: null,
     done: false,
+    active: true,
   };
 
   const addTodo = (todoName) => {
