@@ -13,6 +13,8 @@ const ScreenController = () => {
 
   const updateScreen = () => {
     const contentDiv = document.getElementById('content');
+    renderTodos();
+    renderProjects();
 
     // // Add the image to our existing div.
     // const myIcon = new Image();
@@ -24,6 +26,7 @@ const ScreenController = () => {
   const renderProjects = () => {
     const projects = projectlist.getProjects();
     const projectsContainerDiv = document.querySelector('.projects-container');
+    projectsContainerDiv.innerHTML = '';
 
     projects.forEach((project) => {
       const projectDiv = document.createElement('div');
@@ -36,12 +39,9 @@ const ScreenController = () => {
   };
 
   const renderTodos = () => {
-    // Add two todos to test
-    activeProject.addTodo('todo #1');
-    activeProject.addTodo('todo #2');
-
     const todos = activeProject.getTodos();
     const todosContainerDiv = document.querySelector('.todos-container');
+    todosContainerDiv.innerHTML = '';
 
     todos.forEach((todo) => {
       const todoDiv = document.createElement('div');
@@ -58,31 +58,36 @@ const ScreenController = () => {
     projectlist.addProject();
     activeProject = currentActiveProject();
 
+    // Add two todos to test
+    activeProject.addTodo('todo #1');
+    activeProject.addTodo('todo #2');
+
     const contentDiv = document.createElement('div');
     contentDiv.id = 'content';
     contentDiv.innerHTML = `
-      <div class="projects-container">
-      </div>
-      </div>
-      <div class="todos-container">
-        <h1>Todo</h1>
-        <button class="add-todo-btn">Add todo</button>
+      <div class="projects-container"></div>
+        <div class="container">
+          <h1>Todo</h1>
+          <div class="todos-container"></div>
+          <button class="add-todo-btn">Add todo</button>
+        </div>
       </div>
     `;
     document.body.append(contentDiv);
+    console.log(document.querySelector('.add-todo-btn'));
+    console.log(contentDiv);
 
-    renderProjects();
-    renderTodos();
+    updateScreen();
   };
 
   const bindEventListeners = () => {
     const contentDiv = document.getElementById('content');
-    contentDiv.addEventListener("click", (event) => {
-
-      if (event.target.matches(".add-todo-btn")) {
-        console.log(event.target);
-        activeProject.addTodo("test");
+    contentDiv.addEventListener('click', (event) => {
+      if (event.target.matches('.add-todo-btn')) {
+        activeProject.addTodo('test');
         updateScreen();
+      } else if (event.target.matches()) {
+        ('stuff');
       }
     });
   };
