@@ -10,6 +10,7 @@ const TodoFactory = (name, project) => {
     dueDate: null,
     priority: null,
     done: false,
+    expanded: false
   };
 
   const toggleDone = () => {
@@ -17,7 +18,12 @@ const TodoFactory = (name, project) => {
     console.log(`${proto.name} is done!`);
   };
 
-  return Object.assign(Object.create(proto), { toggleDone });
+  const toggleExpanded = () => {
+    proto.expanded = !proto.expanded;
+    console.log(`${proto.name} is expanded!`);
+  };
+
+  return Object.assign(Object.create(proto), { toggleDone, toggleExpanded });
 };
 
 export default TodoFactory;
