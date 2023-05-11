@@ -18,6 +18,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react'],
+          },
+        },
+      },
+      {
+        test: /\.(svg|eot|woff|woff2|ttf)$/,
+        use: ['file-loader'],
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },

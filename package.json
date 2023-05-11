@@ -20,10 +20,6 @@
   },
   "homepage": "https://github.com/Kuanchiliao1/todolist#readme",
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.2",
@@ -32,7 +28,15 @@
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
+    "@babel/core": "^7.21.8",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^9.1.2",
     "eslint-config-wesbos": "^3.2.3",
+    "file-loader": "^6.2.0",
     "lodash": "^4.17.21"
   }
 }
