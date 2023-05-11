@@ -1,5 +1,12 @@
 # todolist
 Planning:
+UI:
+- use kevin's grid transition for accordion effect
+- dialog elements
+- Edit button for editing todo
+- Expand button for expanding todo
+
+
 M Todo
 constructor(title, description, dueDate, priority, notes, checklist?)
 m deleteTodo
