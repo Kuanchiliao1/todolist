@@ -4,6 +4,7 @@ html {box-sizing: border-box;}
 body {
   margin: 0;
   min-width: 100vh;
+  background-color: hsl(0, 0%, 85%);
 }
 
 button {
@@ -15,12 +16,15 @@ button {
 button > * {
   pointer-events: none;
 }
+
+header {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  border-bottom: 1px black solid;
 }
 
-.todos-container {
+.container {
   background-color: pink;
   height: 20rem;
   max-width: 40rem;
@@ -31,7 +35,16 @@ button > * {
 }
 
 .project {
-  border: solid pink 5px;
+  display: flex;
+  padding: 1rem 2.5rem;
+  background-color: #d44b4b;
+  color: white;
+  gap: 0.8rem;
+}
+
+.projects-container {
+  display: flex;
+  gap: .5rem;
 }
 
 .todo {
