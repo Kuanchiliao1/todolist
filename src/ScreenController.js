@@ -55,7 +55,7 @@ const ScreenController = () => {
 
   const initialRender = () => {
     // This is the first default project
-    projectlist.addProject();
+    projectList.addProject();
     activeProject = currentActiveProject();
 
     // Add two todos to test
@@ -65,18 +65,20 @@ const ScreenController = () => {
     const contentDiv = document.createElement('div');
     contentDiv.id = 'content';
     contentDiv.innerHTML = `
-      <div class="projects-container"></div>
-        <div class="container">
-          <h1>Todo</h1>
-          <div class="todos-container"></div>
-          <button class="add-todo-btn">Add todo</button>
+      <header>
+        <div class="projects-container">
         </div>
+        <button class="add-project-btn">
+          <i class="fas fa-plus"></i>
+        </button>
+      </header>
+      <div class="container">
+        <button class="add-todo-btn">Add todo</button>
+        <h1>Todo</h1>
+        <div class="todos-container"></div>
       </div>
     `;
     document.body.append(contentDiv);
-    console.log(document.querySelector('.add-todo-btn'));
-    console.log(contentDiv);
-
     updateScreen();
   };
 
