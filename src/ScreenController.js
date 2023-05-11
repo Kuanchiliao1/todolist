@@ -80,6 +80,7 @@ const ScreenController = () => {
     `;
     document.body.append(contentDiv);
     updateScreen();
+    bindEventListeners();
   };
 
   const bindEventListeners = () => {
@@ -89,6 +90,14 @@ const ScreenController = () => {
       'add-todo-btn': () => {
         const todoName = prompt('Enter todo name');
         activeProject.addTodo(todoName);
+      },
+      'todo-edit-btn': (todoId) => {
+        activeProject.findTodo(todoId).toggleProperty('formHidden');
+      },
+      'todo-submit-edit-btn': (todoId) => {
+        const todo = activeProject.findTodo(todoId);
+        debugger;
+        todo.toggleProperty('formHidden');
       },
       'add-project-btn': () => {
         projectList.addProject('Project');
@@ -109,6 +118,7 @@ const ScreenController = () => {
     };
 
     contentDiv.addEventListener('click', (event) => {
+      event.preventDefault();
       const action = actions[event.target.className];
 
       if (action) {
