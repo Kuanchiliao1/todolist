@@ -82,12 +82,36 @@ const ScreenController = () => {
 
   const bindEventListeners = () => {
     const contentDiv = document.getElementById('content');
+    // This is called an object lookup
+    const actions = {
+      'add-todo-btn': () => {
+        const todoName = prompt('Enter todo name');
+        activeProject.addTodo(todoName);
+      },
+      'add-project-btn': () => {
+        projectList.addProject('Project');
+      },
+      'delete-project-btn': (projectId) => {
+        projectList.deleteProject(projectId);
+      },
+      'todo-delete-btn': (todoId) => {
+        activeProject.deleteTodo(todoId);
+      },
+      'project-delete-btn': (projectId) => {
+        projectList.deleteProject(projectId);
+      },
+      project: (projectId) => {
+        projectList.setActiveProject(projectId);
+        currentActiveProject();
+      },
+    };
+
     contentDiv.addEventListener('click', (event) => {
-      if (event.target.matches('.add-todo-btn')) {
-        activeProject.addTodo('test');
+      const action = actions[event.target.className];
+
+      if (action) {
+        action(event.target.id);
         updateScreen();
-      } else if (event.target.matches()) {
-        ('stuff');
       }
     });
   };
