@@ -6,9 +6,15 @@ body {
   min-width: 100vh;
 }
 
-.projects-container {
-  background-color: grey;
-  height: 3rem;
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button > * {
+  pointer-events: none;
+}
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -30,4 +36,26 @@ body {
 
 .todo {
   border: solid lightgreen 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-delete-btn {
+  visibility: hidden;
+  min-width: fit-content;
+}
+
+.active .project-delete-btn,
+.project:hover .project-delete-btn {
+  display: block;
+  visibility: visible;
+}
+
+.active {
+  background-color: hsl(0, 48%, 49%);
+}
+
+.add-project-btn {
+  display: flex;
+  align-items: center;
 }
