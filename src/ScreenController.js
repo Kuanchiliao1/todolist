@@ -73,8 +73,10 @@ const ScreenController = () => {
         </button>
       </header>
       <div class="container">
-        <button class="add-todo-btn">Add todo</button>
-        <h1>Todo</h1>
+        <div style="display: flex; justify-content: center;">
+          <h1>Todos</h1>
+          <button class="add-todo-btn"><i class="fas fa-plus"></i></button>
+        </div>
         <div class="todos-container"></div>
       </div>
     `;
