@@ -10,7 +10,8 @@ const TodoFactory = (name, project) => {
     dueDate: null,
     priority: null,
     done: false,
-    expanded: false
+    expanded: false,
+    formHidden: true,
   };
 
   const toggleDone = () => {
@@ -23,7 +24,28 @@ const TodoFactory = (name, project) => {
     console.log(`${proto.name} is expanded!`);
   };
 
-  return Object.assign(Object.create(proto), { toggleDone, toggleExpanded });
+  // for toggling done, expanded, and formHidden
+  const toggleProperty = (property) => {
+    proto[property] = !proto[property];
+  };
+
+  // Produce a shallow copy so the original cannot be edited from this
+  const getTodoObject = () => ({ ...proto });
+
+  const setTodoProperties = (object) => {
+    for (const [prop, value] of Object.entries(object)) {
+      console.log(prop, ":", value)
+      proto[prop] = value;
+    }
+  };
+
+  return Object.assign(Object.create(proto), {
+    toggleDone,
+    toggleExpanded,
+    toggleProperty,
+    getTodoObject,
+    setTodoProperties,
+  });
 };
 
 export default TodoFactory;
