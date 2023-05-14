@@ -3,7 +3,6 @@ html {box-sizing: border-box;}
 
 body {
   margin: 0;
-  min-width: 100vh;
   background-color: hsl(0, 0%, 85%);
 }
 
@@ -26,8 +25,8 @@ header {
 
 .container {
   background-color: pink;
-  height: 20rem;
-  max-width: 40rem;
+  height: fit-content;
+  width: min(80%, 40rem);
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
@@ -48,9 +47,16 @@ header {
 }
 
 .todo {
-  border: solid lightgreen 5px;
+  border: solid darkgreen 5px;
+  background-color: lightgreen;
   display: flex;
   justify-content: space-between;
+}
+
+.todos-container {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .project-delete-btn {
@@ -71,4 +77,10 @@ header {
 .add-project-btn {
   display: flex;
   align-items: center;
+}
+
+form {
+  display: grid;
+  width: 80%;
+  margin-left: auto;
 }
