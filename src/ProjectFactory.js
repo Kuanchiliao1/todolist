@@ -8,7 +8,7 @@
 import createId from './idGenerator';
 import TodoFactory from './TodoFactory';
 
-const ProjectFactory = (name = "Project", active) => {
+const ProjectFactory = (name = 'Project', active) => {
   const proto = {
     id: createId(),
     name,
@@ -26,27 +26,23 @@ const ProjectFactory = (name = "Project", active) => {
     console.log(`Todo with name ${todoName} was added!`);
   };
 
-  const viewTodos = () => {
-    console.table(
-      proto.todos.map((todo) => ({ name: todo.name, id: todo.id }))
-    );
-  };
+  const getTodos = () => proto.todos;
 
-  const deleteTodo = (todoId) => {
-    console.log(`todo with id: ${todoId} has been deleted!`);
+  const deleteTodo = (id) => {
+    const todoId = Number(id);
     proto.todos = proto.todos.filter((todo) => todo.id !== todoId);
   };
 
   const findTodo = (id) => {
-    const todo = proto.todos.find((todo) => todo.id === id);
-    console.log('id', todo.id, 'name', todo.name);
+    const todoId = Number(id);
+    return proto.todos.find((todo) => todo.id === todoId);
   };
 
   return Object.assign(Object.create(proto), {
     findTodo,
     addTodo,
     deleteTodo,
-    viewTodos,
+    getTodos,
   });
 };
 
