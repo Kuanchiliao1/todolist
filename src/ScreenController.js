@@ -24,17 +24,27 @@ const ScreenController = () => {
   };
 
   const renderProjects = () => {
-    const projects = projectlist.getProjects();
+    const projects = projectList.getProjects();
     const projectsContainerDiv = document.querySelector('.projects-container');
     projectsContainerDiv.innerHTML = '';
 
     projects.forEach((project) => {
       const projectDiv = document.createElement('div');
-
-      projectDiv.classList.add('project');
-      projectDiv.id = project.id;
+      const isActive = activeProject.id === project.id;
+      isActive
+        ? projectDiv.classList.add('project', 'active')
+        : projectDiv.classList.add('project');
+      projectDiv.dataset.projectId = project.id;
       projectDiv.textContent = project.name;
       projectsContainerDiv.append(projectDiv);
+
+      const projectDeleteBtn = document.createElement('button');
+      projectDeleteBtn.dataset.projectId = project.id;
+      projectDeleteBtn.classList.add('project-delete-btn');
+
+      projectDeleteBtn.append(createIcon('fas', 'fa-x'));
+
+      projectDiv.append(projectDeleteBtn);
     });
   };
 
@@ -44,13 +54,76 @@ const ScreenController = () => {
     todosContainerDiv.innerHTML = '';
 
     todos.forEach((todo) => {
-      const todoDiv = document.createElement('div');
-
-      todoDiv.classList.add('todo');
-      todoDiv.id = todo.id;
-      todoDiv.textContent = todo.name;
+      const todoDiv = createTodoDiv(todo);
       todosContainerDiv.append(todoDiv);
+      if (!todo.formHidden) {
+        todosContainerDiv.append(createTodoForm(todo));
+      }
     });
+  };
+
+  const createTodoDiv = (todo, container) => {
+    const todoDiv = document.createElement('div');
+
+    todoDiv.classList.add('todo');
+    todoDiv.dataset.todoId = todo.id;
+
+    const todoDeleteBtn = document.createElement('button');
+    todoDeleteBtn.append(createIcon('fas', 'fa-x'));
+    todoDeleteBtn.dataset.todoId = todo.id;
+    todoDeleteBtn.classList.add('todo-delete-btn');
+
+    const todoEditBtn = document.createElement('button');
+    todoEditBtn.append(createIcon('fas', 'fa-edit'));
+    todoEditBtn.dataset.todoId = todo.id;
+    todoEditBtn.classList.add('todo-edit-btn');
+
+    if (1) {
+      const todoNameP = document.createElement('p');
+      todoNameP.textContent = `${todo.name}`;
+      const todoDueDateP = document.createElement('p');
+      todoDueDateP.textContent = `Due date: ${todo.dueDate || 'none'}`;
+      todoDiv.append(todoNameP, todoDueDateP);
+    }
+
+    todoDiv.append(todoEditBtn, todoDeleteBtn);
+    return todoDiv;
+  };
+
+  const createTodoForm = (todo) => {
+    if (todo.formHidden) return;
+
+    const todoInfoForm = document.createElement('form');
+    todoInfoForm.dataset.todoId = todo.id;
+    const todoObject = todo.getTodoObject();
+    for (const [prop, value] of Object.entries(todoObject)) {
+      const formProperties = ['name', 'description', 'dueDate'];
+      if (formProperties.includes(prop)) {
+        const input = document.createElement('input');
+        input.value = value;
+        input.name = prop;
+        const label = document.createElement('label');
+        label.textContent = prop[0].toUpperCase() + prop.slice(1).toLowerCase();
+        if (prop === 'dueDate') {
+          input.type = 'date';
+          label.textContent = 'Due date';
+        }
+        todoInfoForm.append(label, input);
+      }
+    }
+    // eslint-disable-next-line no-restricted-syntax
+    const button = document.createElement('button');
+    button.textContent = 'SUBMIT';
+    button.classList.add('todo-submit-edit-btn');
+    button.dataset.todoId = todo.id;
+    todoInfoForm.append(button);
+    return todoInfoForm;
+  };
+
+  const createIcon = (...classes) => {
+    const icon = document.createElement('i');
+    icon.classList.add(...classes);
+    return icon;
   };
 
   const initialRender = () => {
