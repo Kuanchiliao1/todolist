@@ -171,8 +171,16 @@ const ScreenController = () => {
       },
       'todo-submit-edit-btn': (todoId) => {
         const todo = activeProject.findTodo(todoId);
-        debugger;
         todo.toggleProperty('formHidden');
+        const inputs = document.querySelectorAll(
+          `form[data-todo-id="${todoId}"] input`
+        );
+        const inputsObject = [...inputs].reduce((obj, input) => {
+          obj[input.name] = input.value;
+          console.log(input.name);
+          return obj;
+        }, {});
+        todo.setTodoProperties(inputsObject);
       },
       'add-project-btn': () => {
         projectList.addProject('Project');
