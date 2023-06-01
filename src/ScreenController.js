@@ -1,26 +1,19 @@
 import _ from 'lodash';
-import Icon from './maxim-tolchinskiy-3v-kCslxqiY-unsplash.jpg';
 import ProjectListFactory from './ProjectListFactory';
 
 const ScreenController = () => {
-  const projectlist = ProjectListFactory();
+  const projectList = ProjectListFactory();
+
   let activeProject;
 
   const currentActiveProject = () =>
-    (activeProject = projectlist
+    (activeProject = projectList
       .getProjects()
       .find((project) => project.active));
 
   const updateScreen = () => {
-    const contentDiv = document.getElementById('content');
     renderTodos();
     renderProjects();
-
-    // // Add the image to our existing div.
-    // const myIcon = new Image();
-    // myIcon.src = Icon;
-
-    // contentDiv.appendChild(myIcon);
   };
 
   const renderProjects = () => {
@@ -78,13 +71,12 @@ const ScreenController = () => {
     todoEditBtn.dataset.todoId = todo.id;
     todoEditBtn.classList.add('todo-edit-btn');
 
-    if (1) {
-      const todoNameP = document.createElement('p');
-      todoNameP.textContent = `${todo.name}`;
-      const todoDueDateP = document.createElement('p');
-      todoDueDateP.textContent = `Due date: ${todo.dueDate || 'none'}`;
-      todoDiv.append(todoNameP, todoDueDateP);
-    }
+    const todoNameP = document.createElement('p');
+    todoNameP.textContent = `${todo.name}`;
+
+    const todoDueDateP = document.createElement('p');
+    todoDueDateP.textContent = `Due date: ${todo.dueDate || 'none'}`;
+    todoDiv.append(todoNameP, todoDueDateP);
 
     todoDiv.append(todoEditBtn, todoDeleteBtn);
     return todoDiv;
@@ -132,8 +124,8 @@ const ScreenController = () => {
     activeProject = currentActiveProject();
 
     // Add two todos to test
-    activeProject.addTodo('todo #1');
-    activeProject.addTodo('todo #2');
+    activeProject.addTodo('Test todo 1');
+    activeProject.addTodo('Test todo 2');
 
     const contentDiv = document.createElement('div');
     contentDiv.id = 'content';
@@ -223,17 +215,28 @@ const ScreenController = () => {
     contentDiv.addEventListener('click', (event) => {
       event.preventDefault();
       const action = actions[event.target.className];
+      const { todoId } = event.target.dataset;
+      const { projectId } = event.target.dataset;
 
       if (action) {
-        action(event.target.id);
+        if (todoId) {
+          action(todoId);
+        } else if (projectId) {
+          action(projectId);
+        } else {
+          action();
+        }
         updateScreen();
+
+        localStorage.setItem('projectlist', JSON.stringify(projectList));
+
+        // It does NOT store methods, nor the prototype of the children
+        storeToLocal();
       }
     });
   };
 
   initialRender();
-  updateScreen();
-  bindEventListeners();
 };
 
 export default ScreenController;
