@@ -37,11 +37,15 @@ const ProjectListFactory = () => {
     });
   };
 
+  const getObject = () => ({ ...proto });
+
   return Object.assign(Object.create(proto), {
     findProject,
     addProject,
     deleteProject,
     getProjects,
+    setActiveProject,
+    getObject,
   });
 };
 
