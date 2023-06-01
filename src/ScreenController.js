@@ -158,6 +158,26 @@ const ScreenController = () => {
     bindEventListeners();
   };
 
+  const storeToLocal = () => {
+    const localCompatibleObject = projectList.getObject();
+    localCompatibleObject.projects = projectList.projects.map((project) => {
+      const projectObject = project.getObject();
+      projectObject.todos = project.todos.map((todo) => todo.getTodoObject())
+      return projectObject;
+    });
+    console.log(localCompatibleObject);
+    // Figure out data structure compatible with localStorage
+    // use the shell, then fill in "projects" property of projectList with appropriate
+    // do the same for todos of projects
+
+    // To load from local:
+    // Add method to retrieve methods of target,
+  };
+
+  const retrieveFromLocal = () => {
+    
+  }
+
   const bindEventListeners = () => {
     const contentDiv = document.getElementById('content');
     // This is called an object lookup
